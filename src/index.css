@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+a:hover {
+  color:#00A0C6;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.newsImg {
+  width: 600px;
+  height: 400px;
+}
+
+.newsCard {
+  width: 700px;
+  height: 500px;
+}
