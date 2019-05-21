@@ -55,6 +55,10 @@ a:hover {
   top: 100px;
 }
 
+.popularCard {
+  cursor: pointer;
+}
+
 .bm-burger-button {
   position: fixed;
   width: 36px;
@@ -91,9 +95,9 @@ a:hover {
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
+  background: rgb(82, 92, 109, 0.9);
   padding: 2.5em 1.5em 0;
-  font-size: 1.15em;
+  font-size: 2em;
 }
 
 /* Morph shape necessary with bubble or elastic */
@@ -110,6 +114,7 @@ a:hover {
 /* Individual item */
 .bm-item {
   display: inline-block;
+  color: #000000;
 }
 
 /* Styling of overlay */
