@@ -1,5 +1,15 @@
+html {
+  padding: 0;
+}
+
+body {
+    margin: 0 !important;
+}
+
 .App {
+  position: absolute;
   text-align: center;
+  height: 100%
 }
 
 .App-logo {
