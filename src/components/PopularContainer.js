@@ -31,13 +31,14 @@ class PopularContainer extends Component {
         key={game.id}
         name={game.name}
         cover={game.cover}
+        clickEvent={this.props.clickEvent}
       />
     )
   }
 
   render() {
     return (
-      <div>
+      <div className="popularContainer">
         <h1>Popular Games</h1>
         <ul>
           {this.createGames()}

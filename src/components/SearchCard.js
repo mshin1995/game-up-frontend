@@ -1,8 +1,8 @@
 import React, {Component} from "react"
-import { COVER_URL, HEADERS, CORS, POPULAR_URL} from "../constants"
+import { SEARCH_COVER_URL, HEADERS, CORS, COVER_URL} from "../constants"
 import noimage from "../assets/noimage.png"
 
-class PopularCard extends Component {
+class SearchCard extends Component {
   constructor() {
     super()
     this.state = {
@@ -31,7 +31,7 @@ class PopularCard extends Component {
   refactorURL = (url) => {
     let end = url.split("/").slice(-1)[0]
     this.setState({
-      image: POPULAR_URL + end
+      image: SEARCH_COVER_URL + end
     })
   }
 
@@ -49,4 +49,4 @@ class PopularCard extends Component {
 
 }
 
-export default PopularCard
+export default SearchCard

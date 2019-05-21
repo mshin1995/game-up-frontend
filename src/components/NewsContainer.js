@@ -38,7 +38,7 @@ class NewsContainer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="newsContainer">
         <h1>Recent News</h1>
         <div>
           {this.createArticles()}
