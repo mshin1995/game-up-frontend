@@ -1,6 +1,9 @@
 import React, {Component} from "react"
 import { GAMES_API, GAME_COVER_URL, COVER_URL, GENRE_URL, HEADERS, CORS} from "../constants"
 import { Redirect } from 'react-router-dom'
+import ProgressProvider from "./ProgressProvider";
+import { CircularProgressbar } from "react-circular-progressbar";
+import 'react-circular-progressbar/dist/styles.css';
 
 class Game extends Component {
   constructor() {
@@ -10,6 +13,7 @@ class Game extends Component {
       game: [],
       image: null,
       date: null,
+      rating: null,
       genre: []
     }
   }
@@ -35,6 +39,7 @@ class Game extends Component {
     .then(data => this.fetchCover())
     .then(data => this.releaseDate())
     .then(data => this.fetchGenre())
+    .then(data => this.rating())
   }
 
   fetchCover = () => {
@@ -77,6 +82,19 @@ class Game extends Component {
       })}
   }
 
+  rating = () => {
+    if(this.state.game.aggregated_rating === undefined) {
+      this.setState({
+        rating: "N/A"
+      })
+    } else {
+      let rating = Math.round(this.state.game.aggregated_rating)
+      this.setState({
+        rating: rating
+      })
+    }
+  }
+
   render() {
     if (!this.state.image) {
       return <div />
@@ -86,15 +104,19 @@ class Game extends Component {
     }
     return(
       <div>
-        <div>
+        <div className="gameImg">
           <img src={this.state.image} alt='img'></img>
         </div>
-        <div>
-          <h1>{this.state.game.name}</h1>
+        <div className="gameInfo">
+          <h1 style={{fontSize: "6em", fontFamily: "Impact"}}>{this.state.game.name}</h1>
           <h3>Release Date: {this.state.date}</h3>
           <h3>Genre: {this.state.genre}</h3>
-          <h3>Rating: {this.state.game.aggregated_rating}</h3>
-          <p>{this.state.game.summary}</p>
+          <p style={{fontSize: "1.5em"}}>{this.state.game.summary}</p>
+        </div>
+        <div className="circleContainer">
+          <ProgressProvider valueStart={0} valueEnd={this.state.rating}>
+            {value => <CircularProgressbar className="circle" value={value} text={`Rating: ${value}`} styles={{text:{fontSize: "15px"}}} />}
+          </ProgressProvider>
         </div>
       </div>
     )

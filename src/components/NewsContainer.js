@@ -38,9 +38,9 @@ class NewsContainer extends Component {
 
   render() {
     return (
-      <div className="newsContainer">
-        <h1>Recent News</h1>
-        <div>
+      <div id="news">
+        <h1 style={{color: "white", fontFamily: "Impact", paddingTop: "10px", paddingLeft: "10px"}}>Recent News</h1>
+        <div className="newsContainer">
           {this.createArticles()}
         </div>
       </div>

@@ -3,7 +3,9 @@ import Home from "./components/Home"
 import Sidebar from "./components/Sidebar"
 import Search from "./components/Search"
 import SearchBar from "./components/SearchBar"
+import ListContainer from "./components/ListContainer"
 import Game from "./components/Game"
+import Login from "./components/Login"
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import { USER } from "./constants"
 
@@ -22,15 +24,23 @@ class App extends Component {
     }
   }
 
+  // componentWillMount = () => {
+  //   this.setState({
+  //     loggedIn: localStorage.loggedIn
+  //   })
+  // }
+
   responseGoogle = (response) => {
     let token = response.getAuthResponse().id_token
     let name = response.getBasicProfile().getName()
     let email = response.getBasicProfile().getEmail()
 
+    localStorage.setItem("loggedIn", true)
+
     fetch(USER, {
       method: 'POST',
       headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
       body: JSON.stringify({
         user: {
@@ -48,9 +58,13 @@ class App extends Component {
       token: data.token,
       loggedIn: true
     }))
+    .then(data => alert("Logged In!"))
+
   }
 
   logout = (response) => {
+    localStorage.setItem("loggedIn", false)
+
     this.setState({
       id: "",
       name: "",
@@ -58,6 +72,8 @@ class App extends Component {
       token: "",
       loggedIn: false
     })
+
+    alert("Logged Out!")
   }
 
   renderGame = (prop) => {
@@ -85,7 +101,9 @@ class App extends Component {
       <Fragment>
         <Router>
           <SearchBar className="search" handleSubmit={this.handleSubmit} />
-          <Sidebar responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
+          <Login responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
+          <Sidebar />
+          // <Route exact path="/list" render={() => <ListContainer userId={this.state.id} />} />
           <Route exact path="/game" render={() => <Game gotSearch={this.state.gotSearch}/>} />
           <Route exact path="/search" render={() => <Search searchTerm={this.state.searchTerm} clickEvent={this.renderGame} gotGame={this.state.gotGame}/>} />
           <Route exact path="/" render={() => <Home clickEvent={this.renderGame} gotGame={this.state.gotGame} gotSearch={this.state.gotSearch}/>} />
