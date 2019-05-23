@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, { Fragment, Component } from "react"
 import PopularCard from "./PopularCard"
 import { GAMES_API, HEADERS, CORS} from "../constants"
 
@@ -38,12 +38,14 @@ class PopularContainer extends Component {
 
   render() {
     return (
-      <div className="popularContainer">
-        <h1>Popular Games</h1>
-        <ul>
-          {this.createGames()}
-        </ul>
-      </div>
+      <Fragment>
+        <div id="popular">
+          <h1 style={{color: "white", fontFamily: "Impact", padding: "10px"}}>Popular Games</h1>
+          <div className="popularContainer">
+            {this.createGames()}
+          </div>
+        </div>
+      </Fragment>
     )
   }
 

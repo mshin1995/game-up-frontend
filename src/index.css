@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(46, 48, 53) !important;
 }
 
 code {
@@ -20,6 +21,37 @@ a:hover {
   color:#00A0C6;
   text-decoration:none;
   cursor:pointer;
+}
+
+.circle {
+  height: 125px;
+  width: 125px;
+}
+
+.circleContainer {
+  position: absolute;
+  top: 215px;
+  right: 65px;
+  height: 125px;
+  width: 125px;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.loginButton {
+  position: absolute;
+  top: 16px;
+  right: 30px;
+}
+
+.logoutButton {
+  position: absolute;
+  top: 16px;
+  right: 30px;
 }
 
 .newsImg {
@@ -39,42 +71,90 @@ a:hover {
 
 .search {
   position: absolute;
-  right: 60px;
-  top: 10px;
+  right: 150px;
+  top: 20px;
 }
 
 .newsContainer {
-  position: absolute;
-  left: 200px;
-  top: 100px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 15px;
+  padding-bottom: 30px;
+}
+
+#news {
+  margin-top: 70px;
+  margin-left: 70px;
+  margin-right: 70px;
+  padding: 10px;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255, 0.1);
 }
 
 .popularContainer {
-  position: absolute;
-  left: 1000px;
-  top: 100px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 15px;
 }
 
 .popularCard {
   cursor: pointer;
+  flex: 0 0 auto;
+}
+
+#popular {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 70px;
+  margin-right: 70px;
+  padding: 10px;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255, 0.1);
+}
+
+.coverImg {
+  height: 400px;
+  width: 300px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.gameImg {
+  position: absolute;
+  left: 150px;
+  top: 80px;
+}
+
+.gameInfo {
+  position: absolute;
+  border-radius: 25px;
+  right: 50px;
+  top: 200px;
+  padding: 20px;
+  width: 1000px;
+  height: 500px;
+  color: white;
+  background-color: rgb(255, 255, 255, 0.1);
 }
 
 .bm-burger-button {
   position: fixed;
   width: 36px;
   height: 30px;
-  left: 36px;
-  top: 36px;
+  left: 20px;
+  top: 20px;
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: #c6cad1;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: #a90000;
+  background: #b7c8e5;
 }
 
 /* Position and sizing of clickable cross button */
@@ -95,7 +175,7 @@ a:hover {
 
 /* General sidebar styles */
 .bm-menu {
-  background: rgb(82, 92, 109, 0.9);
+  background: rgb(0, 0, 0, 0.8);
   padding: 2.5em 1.5em 0;
   font-size: 2em;
 }
@@ -114,10 +194,14 @@ a:hover {
 /* Individual item */
 .bm-item {
   display: inline-block;
-  color: #000000;
+  color: white;
+}
+
+.bm-item:hover {
+  color:#00A0C6;
 }
 
 /* Styling of overlay */
 .bm-overlay {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
 }

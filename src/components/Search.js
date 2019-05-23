@@ -21,13 +21,18 @@ class Search extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+
     console.log('should?', nextProps.searchTerm, "state search term", this.state.searchTerm)
     if (nextProps.searchTerm !== this.state.searchTerm) {
+      console.log('not same')
       this.fetchGames(nextState.searchTerm)
+
       return true
     } else if (this.state.games !== nextState.games) {
+
       return true
     }
+
     return false
   }
 
@@ -42,10 +47,12 @@ class Search extends Component {
     this.setState({
         searchTerm: localStorage.currentSearch
       })
+
     this.fetchGames(this.props.searchTerm)
   }
 
   fetchGames = (searchTerm) => {
+
     console.log('fetching', searchTerm)
     fetch(`${CORS}/${SEARCH_URL}${searchTerm}&fields=name,cover`, {
       headers: HEADERS
@@ -69,7 +76,7 @@ class Search extends Component {
   }
 
   render() {
-    if(!this.props.gotGame){
+    if(this.props.gotGame === true){
       return <Redirect to='/game'/>
     }
 

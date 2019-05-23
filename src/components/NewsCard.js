@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import { NEWS_URL, HEADERS, CORS} from "../constants"
+import { NewsHeaderCard } from 'react-ui-cards'
 
 class NewsCard extends Component {
   constructor() {
@@ -28,13 +29,12 @@ class NewsCard extends Component {
       return <div />
     }
     return (
-      <div className="newsCard">
-        <h2>
-          <a href={this.state.website}>
-          {this.props.title}
-          </a>
-        </h2>
-        <img src={this.props.image} alt='img' className="newsImg"></img>
+      <div>
+        <NewsHeaderCard
+          href={this.state.website}
+          thumbnail={this.props.image}
+          title={this.props.title}
+        />
       </div>
     )
   }

@@ -41,8 +41,8 @@ class PopularCard extends Component {
     }
     return (
       <div className="popularCard" onClick={() => this.props.clickEvent(this.props.game.id)}>
-        <h2>{this.props.name}</h2>
-        <img src={this.state.image} alt='img'></img>
+        <img src={this.state.image} className="coverImg" alt='img'></img>
+        <h2 className="title">{this.props.name}</h2>
       </div>
     )
   }
