@@ -54,7 +54,7 @@ class Search extends Component {
   fetchGames = (searchTerm) => {
 
     console.log('fetching', searchTerm)
-    fetch(`${CORS}/${SEARCH_URL}${searchTerm}&fields=name,cover`, {
+    fetch(`${CORS}/${SEARCH_URL}${searchTerm}&fields=name,cover&limit=50`, {
       headers: HEADERS
     })
     .then(resp => resp.json())
@@ -81,11 +81,11 @@ class Search extends Component {
     }
 
     return (
-      <div>
-        <h1>Search Results {this.state.searchTerm}</h1>
-        <ul>
+      <div id="search">
+        <h1 style={{color: "white", fontFamily: "Impact", paddingTop: "15px", paddingLeft: "15px"}}>Search results for "{this.state.searchTerm}"</h1>
+        <div className="searchContainer">
           {this.createGames()}
-        </ul>
+        </div>
       </div>
     )
   }

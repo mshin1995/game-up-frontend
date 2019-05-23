@@ -103,7 +103,8 @@ class Game extends Component {
       return <Redirect to='/search'/>
     }
     return(
-      <div>
+      <div id="game">
+        <div className="gameContainer">
         <div className="gameImg">
           <img src={this.state.image} alt='img'></img>
         </div>
@@ -117,6 +118,7 @@ class Game extends Component {
           <ProgressProvider valueStart={0} valueEnd={this.state.rating}>
             {value => <CircularProgressbar className="circle" value={value} text={`Rating: ${value}`} styles={{text:{fontSize: "15px"}}} />}
           </ProgressProvider>
+        </div>
         </div>
       </div>
     )

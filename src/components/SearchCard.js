@@ -40,9 +40,9 @@ class SearchCard extends Component {
       return <div />
     }
     return (
-      <div onClick={() => this.props.clickEvent(this.props.game.id)}>
-        <h2>{this.props.name}</h2>
-        <img src={this.state.image} alt='img'></img>
+      <div className="searchCard" onClick={() => this.props.clickEvent(this.props.game.id)}>
+        <img src={this.state.image} className="searchImg" alt='img'></img>
+        <h2 className="searchTitle">{this.props.name}</h2>
       </div>
     )
   }

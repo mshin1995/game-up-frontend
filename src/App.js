@@ -8,6 +8,7 @@ import Game from "./components/Game"
 import Login from "./components/Login"
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 import { USER } from "./constants"
+import logo from "./assets/logo.png"
 
 
 class App extends Component {
@@ -100,6 +101,7 @@ class App extends Component {
     return (
       <Fragment>
         <Router>
+          <img className="logo" src={logo} alt="logo" />
           <SearchBar className="search" handleSubmit={this.handleSubmit} />
           <Login responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
           <Sidebar />
