@@ -10,6 +10,7 @@ class SearchBar extends Component {
           <Input
             icon={<Icon name='search' inverted circular link onClick={this.props.handleSubmit}/>}
             placeholder='Search...'
+            onChange={this.props.handleChange}
             />
         </form>
       </div>

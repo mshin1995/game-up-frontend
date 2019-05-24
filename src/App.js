@@ -84,17 +84,22 @@ class App extends Component {
     localStorage.setItem("currentGameId", prop)
   }
 
+  handleChange = (e) => {
+    this.setState({
+      searchTerm: e.target.value
+    })
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
-
-    let text = e.target.getElementsByTagName('input')[0].value
-
+    // let text = e.target.getElementsByTagName('input')[0].value
+    // console.log(text)
     this.setState({
-      gotSearch: !this.state.gotSearch,
-      searchTerm: text
+      gotSearch: !this.state.gotSearch
+      // searchTerm: text
     })
 
-    localStorage.setItem("currentSearch", text)
+    localStorage.setItem("currentSearch", this.state.searchTerm)
   }
 
   render() {
@@ -102,7 +107,7 @@ class App extends Component {
       <Fragment>
         <Router>
           <img className="logo" src={logo} alt="logo" />
-          <SearchBar className="search" handleSubmit={this.handleSubmit} />
+          <SearchBar className="search" handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
           <Login responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
           <Sidebar />
           // <Route exact path="/list" render={() => <ListContainer userId={this.state.id} />} />

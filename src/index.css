@@ -109,7 +109,7 @@ a:hover {
 
 .popularCard {
   cursor: pointer;
-  flex: 0 0 auto;
+  word-wrap: break-word;
 }
 
 #popular {
