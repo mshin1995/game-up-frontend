@@ -1,9 +1,10 @@
-import React, {Component} from "react"
+import React, {Component, Fragment} from "react"
 import { GAMES_API, GAME_COVER_URL, COVER_URL, GENRE_URL, HEADERS, CORS} from "../constants"
 import { Redirect } from 'react-router-dom'
 import ProgressProvider from "./ProgressProvider";
 import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
+import SearchBar from "./SearchBar"
 
 class Game extends Component {
   constructor() {
@@ -14,7 +15,8 @@ class Game extends Component {
       image: null,
       date: null,
       rating: null,
-      genre: []
+      genre: [],
+      gotSearch: false
     }
   }
 
@@ -26,6 +28,17 @@ class Game extends Component {
 
   componentDidMount() {
     this.fetchGame()
+  }
+
+  handleChange = (e) => {
+    localStorage.setItem("currentSearch", e.target.value)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.setState({
+      gotSearch: !this.state.gotSearch
+    })
   }
 
   fetchGame = () => {
@@ -58,6 +71,11 @@ class Game extends Component {
   }
 
   fetchGenre = () => {
+    if(this.state.game.genres === undefined) {
+      this.setState({
+        genre: "N/A"
+      })
+    } else {
     return this.state.game.genres.map(genre =>
       fetch(`${CORS}/${GENRE_URL}/${genre}/?fields=name`, {
         headers: HEADERS
@@ -67,6 +85,7 @@ class Game extends Component {
         genre: [...this.state.genre, data[0].name + " "]
       }))
     )
+    }
   }
 
   releaseDate = () => {
@@ -99,17 +118,19 @@ class Game extends Component {
     if (!this.state.image) {
       return <div />
     }
-    if(this.props.gotSearch){
+    if(this.state.gotSearch) {
       return <Redirect to='/search'/>
     }
     return(
+      <Fragment>
+      <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
       <div id="game">
         <div className="gameContainer">
         <div className="gameImg">
           <img src={this.state.image} alt='img'></img>
         </div>
         <div className="gameInfo">
-          <h1 style={{fontSize: "6em", fontFamily: "Impact"}}>{this.state.game.name}</h1>
+          <h1 style={{fontSize: "6em", fontFamily: "Impact", width: "900px"}}>{this.state.game.name}</h1>
           <h3>Release Date: {this.state.date}</h3>
           <h3>Genre: {this.state.genre}</h3>
           <p style={{fontSize: "1.5em"}}>{this.state.game.summary}</p>
@@ -121,6 +142,7 @@ class Game extends Component {
         </div>
         </div>
       </div>
+      </Fragment>
     )
   }
 }
