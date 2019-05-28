@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import { SEARCH_COVER_URL, HEADERS, CORS, COVER_URL} from "../constants"
 import noimage from "../assets/noimage.png"
 
-class RecentCard extends Component {
+class ListSearchCard extends Component {
   constructor() {
     super()
     this.state = {
@@ -40,13 +40,17 @@ class RecentCard extends Component {
       return <div />
     }
     return (
-      <div className="searchCard" onClick={() => this.props.clickEvent(this.props.game.id)}>
-        <img src={this.state.image} className="searchImg" alt='img'></img>
-        <h2 className="searchTitle">{this.props.name}</h2>
+      <div className="listSearchCard" onClick={() => this.props.clickEvent(this.props.game)}>
+        <div>
+          <img src={this.state.image} className="listSearchImg" alt='img'></img>
+        </div>
+        <div className="listSearchTitle">
+          <h2 style={{fontSize: "1.2em"}}>{this.props.name}</h2>
+        </div>
       </div>
     )
   }
 
 }
 
-export default RecentCard
+export default ListSearchCard

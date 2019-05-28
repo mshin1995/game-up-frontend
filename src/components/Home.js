@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 import NewsContainer from "./NewsContainer"
 import PopularContainer from "./PopularContainer"
 import SearchBar from "./SearchBar"

@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import { SEARCH_COVER_URL, HEADERS, CORS, COVER_URL} from "../constants"
 import noimage from "../assets/noimage.png"
 
-class RecentCard extends Component {
+class SoonCard extends Component {
   constructor() {
     super()
     this.state = {
@@ -49,4 +49,4 @@ class RecentCard extends Component {
 
 }
 
-export default RecentCard
+export default SoonCard

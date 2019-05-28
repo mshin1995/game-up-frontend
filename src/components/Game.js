@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react"
+import React, { Component, Fragment } from "react"
 import { GAMES_API, GAME_COVER_URL, COVER_URL, GENRE_URL, HEADERS, CORS} from "../constants"
 import { Redirect } from 'react-router-dom'
 import ProgressProvider from "./ProgressProvider";

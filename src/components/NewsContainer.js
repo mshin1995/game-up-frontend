@@ -15,7 +15,7 @@ class NewsContainer extends Component {
   }
 
   fetchArticles = () => {
-    fetch(`${CORS}/${NEWS_API}/?fields=title,image,website&order=published_at:desc`, {
+    fetch(`${CORS}/${NEWS_API}/?fields=title,image,website&order=published_at:desc&limit=20`, {
       headers: HEADERS
     })
     .then(resp => resp.json())

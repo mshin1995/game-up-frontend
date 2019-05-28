@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react"
-import RecentCard from "./RecentCard"
-import { RECENT_URL, HEADERS, CORS} from "../constants"
+import SoonCard from "./SoonCard"
+import { SOON_URL, HEADERS, CORS} from "../constants"
 import { Redirect } from 'react-router-dom'
 import SearchBar from "./SearchBar"
 
-class RecentContainer extends Component {
+class SoonContainer extends Component {
   constructor() {
     super()
     this.state = {
@@ -32,7 +32,7 @@ class RecentContainer extends Component {
   fetchGames = () => {
     let date = Math.floor(Date.now() / 1000)
     console.log(date)
-    fetch(`${CORS}/${RECENT_URL}${date}&limit=50`, {
+    fetch(`${CORS}/${SOON_URL}${date}&limit=50`, {
       headers: HEADERS
     })
     .then(resp => resp.json())
@@ -43,7 +43,7 @@ class RecentContainer extends Component {
 
   createGames = () => {
     return this.state.games.map(game =>
-      <RecentCard
+      <SoonCard
         game={game}
         key={game.id}
         name={game.name}
@@ -71,7 +71,7 @@ class RecentContainer extends Component {
       <Fragment>
       <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
       <div id="search">
-        <h1 style={{color: "white", fontFamily: "Impact", paddingTop: "15px", paddingLeft: "15px"}}>Recently Released</h1>
+        <h1 style={{color: "white", fontFamily: "Impact", paddingTop: "15px", paddingLeft: "15px"}}>Coming Soon</h1>
         <div className="searchContainer">
           {this.createGames()}
         </div>
@@ -81,4 +81,4 @@ class RecentContainer extends Component {
   }
 }
 
-export default RecentContainer
+export default SoonContainer
