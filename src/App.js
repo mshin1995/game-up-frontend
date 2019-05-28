@@ -1,9 +1,10 @@
-import React, {Component, Fragment} from "react"
+import React, { Component, Fragment } from "react"
 import Home from "./components/Home"
 import Sidebar from "./components/Sidebar"
 import Search from "./components/Search"
-import SearchBar from "./components/SearchBar"
 import ListContainer from "./components/ListContainer"
+import RecentContainer from "./components/RecentContainer"
+import SoonContainer from "./components/SoonContainer"
 import Game from "./components/Game"
 import Login from "./components/Login"
 import {Route, BrowserRouter as Router} from 'react-router-dom'
@@ -25,11 +26,11 @@ class App extends Component {
     }
   }
 
-  // componentWillMount = () => {
-  //   this.setState({
-  //     loggedIn: localStorage.loggedIn
-  //   })
-  // }
+  componentDidMount = () => {
+    this.setState({
+      current_user: this.getUserFromCookies("current_user")
+    })
+  }
 
   responseGoogle = (response) => {
     let token = response.getAuthResponse().id_token
@@ -60,7 +61,6 @@ class App extends Component {
       loggedIn: true
     }))
     .then(data => alert("Logged In!"))
-
   }
 
   logout = (response) => {
@@ -73,28 +73,45 @@ class App extends Component {
       token: "",
       loggedIn: false
     })
-
     alert("Logged Out!")
   }
 
+getUserFromCookies = (name) => {
+        const key = name + '='
+        const decodedCookie = decodeURIComponent(document.cookie)
+        const ca = decodedCookie.split(';')
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i]
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1)
+            }
+            if (c.indexOf(key) === 0) {
+                const json = JSON.parse(c.substring(key.length, c.length))
+                return json
+            }
+        }
+        return ''
+    }
+
   renderGame = (prop) => {
     this.setState({
-      gotGame: !this.state.gotGame
+      gotGame: true
     })
     localStorage.setItem("currentGameId", prop)
   }
 
+  handleChange = (e) => {
+    this.setState({
+      searchTerm: e.target.value
+    })
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
-
-    let text = e.target.getElementsByTagName('input')[0].value
-
     this.setState({
-      gotSearch: !this.state.gotSearch,
-      searchTerm: text
+      gotSearch: !this.state.gotSearch
     })
-
-    localStorage.setItem("currentSearch", text)
+    localStorage.setItem("currentSearch", this.state.searchTerm)
   }
 
   render() {
@@ -102,13 +119,14 @@ class App extends Component {
       <Fragment>
         <Router>
           <img className="logo" src={logo} alt="logo" />
-          <SearchBar className="search" handleSubmit={this.handleSubmit} />
           <Login responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
-          <Sidebar />
-          // <Route exact path="/list" render={() => <ListContainer userId={this.state.id} />} />
+          <Sidebar loggedIn={this.state.loggedIn}/>
+          <Route exact path="/lists" render={() => <ListContainer userId={this.state.id} />} />
+          <Route exact path="/" render={() => <Home clickEvent={this.renderGame} gotGame={this.state.gotGame} gotSearch={this.state.gotSearch} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>} />
           <Route exact path="/game" render={() => <Game gotSearch={this.state.gotSearch}/>} />
-          <Route exact path="/search" render={() => <Search searchTerm={this.state.searchTerm} clickEvent={this.renderGame} gotGame={this.state.gotGame}/>} />
-          <Route exact path="/" render={() => <Home clickEvent={this.renderGame} gotGame={this.state.gotGame} gotSearch={this.state.gotSearch}/>} />
+          <Route exact path="/recent" render={() => <RecentContainer />} />
+          <Route exact path="/comingsoon" render={() => <SoonContainer />} />
+          <Route exact path="/search" render={() => <Search clickEvent={this.renderGame} gotGame={this.state.gotGame}/>} />
         </Router>
       </Fragment>
     )

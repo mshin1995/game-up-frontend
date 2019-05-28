@@ -15,7 +15,7 @@ class PopularContainer extends Component {
   }
 
   fetchGames = () => {
-    fetch(`${CORS}/${GAMES_API}/?fields=name,cover&order=popularity:desc`, {
+    fetch(`${CORS}/${GAMES_API}/?fields=name,cover&order=popularity:desc&filter[themes][not_in]=42&limit=20`, {
       headers: HEADERS
     })
     .then(resp => resp.json())

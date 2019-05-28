@@ -7,10 +7,12 @@ export const GENRE_URL = "https://api-v3.igdb.com/genres"
 export const GAME_COVER_URL = "//images.igdb.com/igdb/image/upload/t_cover_big_2x/"
 export const POPULAR_URL = "//images.igdb.com/igdb/image/upload/t_cover_big/"
 export const SEARCH_COVER_URL = "//images.igdb.com/igdb/image/upload/t_cover_small_2x/"
+export const RECENT_URL = "https://api-v3.igdb.com/games/?fields=name,cover&order=first_release_date:desc&filter[first_release_date][exists]&filter[first_release_date][lt]="
+export const SOON_URL = "https://api-v3.igdb.com/games/?fields=name,cover&order=first_release_date:asc&filter[first_release_date][exists]&filter[first_release_date][gt]="
 export const CORS = "https://my-cors-server.herokuapp.com"
 export const USER = "http://localhost:3000/users"
 export const LIST = "http://localhost:3000/lists"
 export const HEADERS = {
   Accept: "application/json",
-  "user-key": "94404946c7e6238d6ec12d6fa83657d7"
+  "user-key": "37366b59784997ec30df8169999f83d3"
 }
