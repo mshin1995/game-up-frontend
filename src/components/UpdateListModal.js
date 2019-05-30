@@ -5,11 +5,11 @@ import UpdateSearchContainer from "./UpdateSearchContainer"
 
 
 class UpdateListModal extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       games: [],
-      title: ""
+      title: props.title
     }
   }
 
@@ -52,7 +52,7 @@ class UpdateListModal extends Component {
         },
       body: JSON.stringify({
         list: {
-          title: localStorage.title,
+          title: this.state.title,
           user_id: JSON.parse(localStorage.currentUser).id,
           games: this.getGameIds()
         }
@@ -63,14 +63,16 @@ class UpdateListModal extends Component {
   }
 
   handleChange = (e) => {
-    localStorage.setItem("title", e.target.value)
+    this.setState({
+      title: e.target.value
+    })
   }
 
   render() {
     return (
       <Fragment>
         <div className="listAdd">
-          <UpdateListForm games={this.state.games} clickEvent={this.removeGame} handleSubmit={this.updateList} handleChange={this.handleChange} />
+          <UpdateListForm games={this.state.games} title={this.props.title} clickEvent={this.removeGame} handleSubmit={this.updateList} handleChange={this.handleChange} />
         </div>
         <UpdateSearchContainer clickEvent={this.addGame} />
       </Fragment>

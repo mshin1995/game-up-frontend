@@ -37,6 +37,7 @@ class ListCard extends Component {
         key={game.id}
         name={game.name}
         image={game.cover.url}
+        clickEvent={this.props.clickEvent}
       />
     )
   }
@@ -54,11 +55,17 @@ class ListCard extends Component {
   }
 
   openModal = () => {
-    this.setState({modalIsOpen: true});
+    this.setState({
+      modalIsOpen: true
+    })
   }
 
   closeModal = () => {
-    this.setState({modalIsOpen: false});
+    this.setState({
+      modalIsOpen: false,
+      games: []
+    })
+    this.fetchGames()
   }
 
   render() {
@@ -72,13 +79,12 @@ class ListCard extends Component {
         <Button className="editButton" onClick={this.openModal}>Edit List</Button>
           <Modal
             isOpen={this.state.modalIsOpen}
-            onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
             className="modal"
             ariaHideApp={false}
             overlayClassName="overlay"
           >
-          <UpdateListModal games={this.state.games} list={this.props.list} refresh={this.props.refresh} />
+          <UpdateListModal games={this.state.games} list={this.props.list} title={this.props.list.title} refresh={this.props.refresh} />
           <Button icon className="modalButton" onClick={this.closeModal}>
             <Icon name='times' />
           </Button>

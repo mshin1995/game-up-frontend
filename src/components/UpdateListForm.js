@@ -22,7 +22,7 @@ class UpdateListForm extends Component {
         <div className="newListForm">
           <Form onSubmit={this.props.handleSubmit}>
             <Form.Group>
-              <Form.Input placeholder="Enter List Name" onChange={this.props.handleChange}/>
+              <Form.Input placeholder="Enter List Name" defaultValue={this.props.title} onChange={this.props.handleChange}/>
               <Button type='submit'>Update List</Button>
             </Form.Group>
           </Form>
