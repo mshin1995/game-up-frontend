@@ -24,7 +24,17 @@ class RecentCard extends Component {
         headers: HEADERS
       })
       .then(resp => resp.json())
-      .then(data => this.refactorURL(data[0].url))
+      .then(data => this.checkUndefined(data))
+    }
+  }
+
+  checkUndefined = (data) => {
+    if(data[0] === undefined) {
+      this.setState({
+        image: noimage
+      })
+    } else {
+      this.refactorURL(data[0].url)
     }
   }
 

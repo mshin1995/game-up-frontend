@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import { SEARCH_COVER_URL, HEADERS, CORS, COVER_URL} from "../constants"
 import noimage from "../assets/noimage.png"
 
-class SoonCard extends Component {
+class UpdateListCard extends Component {
   constructor() {
     super()
     this.state = {
@@ -20,21 +20,11 @@ class SoonCard extends Component {
         image: noimage
       })
     } else {
-      fetch(`${CORS}/${COVER_URL}/${this.props.cover}?fields=url`, {
+      fetch(`${CORS}/${COVER_URL}/${this.props.cover.id}?fields=url`, {
         headers: HEADERS
       })
       .then(resp => resp.json())
-      .then(data => this.checkUndefined(data))
-    }
-  }
-
-  checkUndefined = (data) => {
-    if(data[0] === undefined) {
-      this.setState({
-        image: noimage
-      })
-    } else {
-      this.refactorURL(data[0].url)
+      .then(data => this.refactorURL(data[0].url))
     }
   }
 
@@ -50,13 +40,17 @@ class SoonCard extends Component {
       return <div />
     }
     return (
-      <div className="searchCard" onClick={() => this.props.clickEvent(this.props.game.id)}>
-        <img src={this.state.image} className="searchImg" alt='img'></img>
-        <h2 className="searchTitle">{this.props.name}</h2>
+      <div className="listSearchCard" onClick={() => this.props.clickEvent(this.props.game)}>
+        <div>
+          <img src={this.state.image} className="listSearchImg" alt='img'></img>
+        </div>
+        <div className="listSearchTitle">
+          <h2 style={{fontSize: "1.2em"}}>{this.props.name}</h2>
+        </div>
       </div>
     )
   }
 
 }
 
-export default SoonCard
+export default UpdateListCard

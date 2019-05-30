@@ -4,7 +4,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 class Login extends Component {
 
   render() {
-    if(this.props.loggedIn === false) {
+    if (localStorage.currentUser === 'null') {
       return (
         <GoogleLogin
           className="loginButton"
@@ -15,11 +15,11 @@ class Login extends Component {
           cookiePolicy={'single_host_origin'}
         />
       )
-    }
-    if(this.props.loggedIn === true) {
+    } else {
       return (
         <GoogleLogout
           className="logoutButton"
+          clientId="438176320105-phev9j6ekg3eso7qu2hv4no0j86ftsfi.apps.googleusercontent.com"
           buttonText="Logout"
           onLogoutSuccess={this.props.logout}
         />

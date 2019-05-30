@@ -4,7 +4,7 @@ import { slide as Menu } from 'react-burger-menu'
 class Sidebar extends Component {
 
   render() {
-    if (this.props.loggedIn === false) {
+    if (localStorage.currentUser === 'null') {
       return (
         <Menu noOverlay disableAutoFocus>
           <a id="Home" className="menu-item" href="/">Home</a>

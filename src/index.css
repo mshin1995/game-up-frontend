@@ -28,7 +28,7 @@ a:hover {
   overflow-y: scroll;
   flex-wrap: wrap;
   display: flex;
-  top: 80px;
+  top: 100px;
   left: 260px;
   right: 260px;
   bottom: 90px;
@@ -38,14 +38,28 @@ a:hover {
 
 .modalButton {
   position: absolute;
-  height: 25px;
-  width: 25px;
   right: 5px;
   top: 10px;
 }
 
-.overlay {
-  background-color: black;
+.addListButton{
+  position: absolute;
+  top: 108px;
+  right: 95px;
+}
+
+.deleteButton {
+  position: relative;
+  bottom: -30px;
+  left: 250px;
+  height: 35px;
+}
+
+.editButton {
+  position: relative;
+  left: 235px;
+  bottom: -30px;
+  height: 35px;
 }
 
 .circle {
@@ -209,6 +223,48 @@ a:hover {
   padding-bottom: 60px;
 }
 
+.listCard {
+  height: 700px;
+  width: 475px;
+  margin: 30px;
+  border-radius: 10px;
+  background-color: rgb(87, 141, 229, 0.4);
+}
+
+.listCardTitle {
+  position: relative;
+  color: white;
+  width: 500px;
+  height: 20px;
+  margin-left: 20px;
+  top: 20px;
+}
+
+.listGameContainer {
+  height: 565px;
+  width: 475px;
+  word-wrap: break-word;
+  margin-top: 35px;
+  padding-left: 10px;
+  overflow-y: scroll;
+}
+
+.listGameCard {
+  width: 435px;
+  height: 105px;
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  margin: 5px;
+}
+
+.listGameTitle {
+  color: white;
+  width: 300px;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+
 .listAdd {
   margin: 15px;
   margin-top: 100px;
@@ -246,7 +302,7 @@ a:hover {
 
 .listSearchBar {
   position: absolute;
-  right: 390px;
+  right: 400px;
   top: 25px;
 }
 
