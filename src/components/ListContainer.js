@@ -13,7 +13,8 @@ class ListContainer extends Component {
     this.state = {
       lists: [],
       modalIsOpen: false,
-      gotSearch: false
+      gotSearch: false,
+      gotGame: false
     }
   }
 
@@ -45,14 +46,21 @@ class ListContainer extends Component {
     })})
   }
 
+  renderGame = (prop) => {
+    this.setState({
+      gotGame: true
+    })
+    localStorage.setItem("currentGameId", prop)
+  }
+
   createLists = () => {
-    console.log('hi', this.state.lists)
     return this.state.lists.map(list =>
       <ListCard
         list={list}
         key={list.id}
         title={list.title}
         games={list.games}
+        clickEvent={this.renderGame}
         refresh={this.refresh}
       />
     )
@@ -69,6 +77,9 @@ class ListContainer extends Component {
   render() {
     if(this.state.gotSearch) {
       return <Redirect to='/search'/>
+    }
+    if(this.state.gotGame){
+      return <Redirect to='/game'/>
     }
     return (
       <Fragment>

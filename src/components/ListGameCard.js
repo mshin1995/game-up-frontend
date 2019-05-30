@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 import { SEARCH_COVER_URL } from "../constants"
 
 
@@ -11,7 +11,7 @@ class ListGameCard extends Component {
 
   render() {
     return (
-      <div className="listGameCard">
+      <div className="listGameCard" onClick={() => this.props.clickEvent(this.props.game.id)}>
         <div>
           <img src={this.refactorURL(this.props.image)} className="listSearchImg" alt='img'></img>
         </div>

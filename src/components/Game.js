@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react"
-import { GAMES_API, GAME_COVER_URL, COVER_URL, GENRE_URL, HEADERS, CORS} from "../constants"
+import { GAMES_API, GAME_COVER_URL, COVER_URL, GENRE_URL, HEADERS, CORS } from "../constants"
 import { Redirect } from 'react-router-dom'
 import ProgressProvider from "./ProgressProvider";
 import { CircularProgressbar } from "react-circular-progressbar";
 import 'react-circular-progressbar/dist/styles.css';
 import SearchBar from "./SearchBar"
+import ScreenshotCard from "./ScreenshotCard"
 
 class Game extends Component {
   constructor() {
@@ -16,6 +17,7 @@ class Game extends Component {
       date: null,
       rating: null,
       genre: [],
+      screenshot: [],
       gotSearch: false
     }
   }
@@ -42,7 +44,7 @@ class Game extends Component {
   }
 
   fetchGame = () => {
-    fetch(`${CORS}/${GAMES_API}/${this.state.gameId}/?fields=name,cover,first_release_date,aggregated_rating,genres,summary`, {
+    fetch(`${CORS}/${GAMES_API}/${this.state.gameId}/?fields=name,cover,first_release_date,aggregated_rating,genres,summary,screenshots.url`, {
       headers: HEADERS
     })
     .then(resp => resp.json())
@@ -76,15 +78,27 @@ class Game extends Component {
         genre: "N/A"
       })
     } else {
-    return this.state.game.genres.map(genre =>
-      fetch(`${CORS}/${GENRE_URL}/${genre}/?fields=name`, {
-        headers: HEADERS
-      })
-      .then(resp => resp.json())
-      .then(data => this.setState({
-        genre: [...this.state.genre, data[0].name + " "]
-      }))
-    )
+      return this.state.game.genres.map(genre =>
+        fetch(`${CORS}/${GENRE_URL}/${genre}/?fields=name`, {
+          headers: HEADERS
+        })
+        .then(resp => resp.json())
+        .then(data => this.setState({
+          genre: [...this.state.genre, data[0].name + " "]
+        }))
+      )
+    }
+  }
+
+  renderScreenshots = () => {
+    if(this.state.game.screenshots !== undefined) {
+      return this.state.game.screenshots.map(screenshot =>
+        <ScreenshotCard
+          screenshot={screenshot}
+          key={screenshot.id}
+          image={screenshot.url}
+        />
+      )
     }
   }
 
@@ -140,6 +154,11 @@ class Game extends Component {
             {value => <CircularProgressbar className="circle" value={value} text={`Rating: ${value}`} styles={{text:{fontSize: "15px"}}} />}
           </ProgressProvider>
         </div>
+        </div>
+      </div>
+      <div id="screenshot">
+        <div className="screenshotContainer">
+          {this.renderScreenshots()}
         </div>
       </div>
       </Fragment>
