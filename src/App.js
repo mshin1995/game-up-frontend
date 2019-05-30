@@ -26,18 +26,10 @@ class App extends Component {
     }
   }
 
-  componentDidMount = () => {
-    this.setState({
-      current_user: this.getUserFromCookies("current_user")
-    })
-  }
-
   responseGoogle = (response) => {
     let token = response.getAuthResponse().id_token
     let name = response.getBasicProfile().getName()
     let email = response.getBasicProfile().getEmail()
-
-    localStorage.setItem("loggedIn", true)
 
     fetch(USER, {
       method: 'POST',
@@ -53,45 +45,19 @@ class App extends Component {
       })
     })
     .then(resp => resp.json())
-    .then(data => this.setState({
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      token: data.token,
-      loggedIn: true
-    }))
+    .then(data => {
+      localStorage.setItem("currentUser", JSON.stringify(data))
+      this.forceUpdate()
+    })
     .then(data => alert("Logged In!"))
   }
 
   logout = (response) => {
-    localStorage.setItem("loggedIn", false)
+    localStorage.setItem("currentUser", null)
+    this.forceUpdate()
 
-    this.setState({
-      id: "",
-      name: "",
-      email: "",
-      token: "",
-      loggedIn: false
-    })
     alert("Logged Out!")
   }
-
-getUserFromCookies = (name) => {
-        const key = name + '='
-        const decodedCookie = decodeURIComponent(document.cookie)
-        const ca = decodedCookie.split(';')
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i]
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1)
-            }
-            if (c.indexOf(key) === 0) {
-                const json = JSON.parse(c.substring(key.length, c.length))
-                return json
-            }
-        }
-        return ''
-    }
 
   renderGame = (prop) => {
     this.setState({
@@ -119,7 +85,7 @@ getUserFromCookies = (name) => {
       <Fragment>
         <Router>
           <img className="logo" src={logo} alt="logo" />
-          <Login responseGoogle={this.responseGoogle} logout={this.logout} loggedIn={this.state.loggedIn} />
+          <Login responseGoogle={this.responseGoogle} logout={this.logout} />
           <Sidebar loggedIn={this.state.loggedIn}/>
           <Route exact path="/lists" render={() => <ListContainer userId={this.state.id} />} />
           <Route exact path="/" render={() => <Home clickEvent={this.renderGame} gotGame={this.state.gotGame} gotSearch={this.state.gotSearch} handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>} />

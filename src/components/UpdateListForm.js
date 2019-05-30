@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react"
-import NewListCard from "./NewListCard"
+import UpdateListCard from "./UpdateListCard"
 import { Button, Form } from 'semantic-ui-react'
 
-class NewListForm extends Component {
+class UpdateListForm extends Component {
 
   createGames = () => {
     return this.props.games.map(game =>
-      <NewListCard
+      <UpdateListCard
         game={game}
         key={game.id}
         name={game.name}
@@ -23,7 +23,7 @@ class NewListForm extends Component {
           <Form onSubmit={this.props.handleSubmit}>
             <Form.Group>
               <Form.Input placeholder="Enter List Name" onChange={this.props.handleChange}/>
-              <Button type='submit'>Create List</Button>
+              <Button type='submit'>Update List</Button>
             </Form.Group>
           </Form>
         </div>
@@ -36,4 +36,4 @@ class NewListForm extends Component {
   }
 }
 
-export default NewListForm
+export default UpdateListForm

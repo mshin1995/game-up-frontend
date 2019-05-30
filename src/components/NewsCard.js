@@ -10,19 +10,29 @@ class NewsCard extends Component {
     }
   }
 
-  // componentWillMount = () => {
-  //   this.fetchWebsite()
-  // }
-  //
-  // fetchWebsite = () => {
-  //   fetch(`${CORS}/${NEWS_URL}/${this.props.website}?fields=url`, {
-  //     headers: HEADERS
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(data => this.setState({
-  //     website: data[0].url
-  //   }))
-  // }
+  componentWillMount = () => {
+    this.fetchWebsite()
+  }
+
+  fetchWebsite = () => {
+    fetch(`${CORS}/${NEWS_URL}/${this.props.website}?fields=url`, {
+      headers: HEADERS
+    })
+    .then(resp => resp.json())
+    .then(data => this.checkUndefined(data))
+  }
+
+  checkUndefined = (data) => {
+    if(data[0] === undefined) {
+      this.setState({
+        website: ''
+      })
+    } else {
+      this.setState({
+        website: data[0].url
+      })
+    }
+  }
 
   render() {
     if (!this.state.website) {

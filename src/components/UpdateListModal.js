@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react"
 import { LIST } from "../constants"
-import NewListForm from "./NewListForm"
-import ListSearchContainer from "./ListSearchContainer"
+import UpdateListForm from "./UpdateListForm"
+import UpdateSearchContainer from "./UpdateSearchContainer"
 
 
-class NewListModal extends Component {
+class UpdateListModal extends Component {
   constructor() {
     super()
     this.state = {
@@ -13,8 +13,18 @@ class NewListModal extends Component {
     }
   }
 
+  componentWillMount = () => {
+    this.existingGames()
+  }
+
+  existingGames = () => {
+    this.setState({
+      games: this.props.games
+    })
+  }
+
   addGame = (prop) => {
-    if(!this.state.games.includes(prop)) {
+    if(!this.props.games.includes(prop)) {
       this.setState({
         games: [...this.state.games, prop]
       })
@@ -22,6 +32,7 @@ class NewListModal extends Component {
   }
 
   removeGame = (prop) => {
+    console.log(prop)
     this.setState({
       games: this.state.games.filter(object => object !== prop)
     })
@@ -33,10 +44,9 @@ class NewListModal extends Component {
     )
   }
 
-
-  addList = () => {
-    fetch(LIST, {
-      method: 'POST',
+  updateList = () => {
+    fetch(`${LIST}/${this.props.list.id}`, {
+      method: 'PATCH',
       headers: {
           'Content-Type': 'application/json',
         },
@@ -48,7 +58,7 @@ class NewListModal extends Component {
         }
       })
     })
-    .then(data => alert("List Created!"))
+    .then(data => alert("List Updated!"))
     .then(data => this.props.refresh())
   }
 
@@ -60,12 +70,12 @@ class NewListModal extends Component {
     return (
       <Fragment>
         <div className="listAdd">
-          <NewListForm games={this.state.games} clickEvent={this.removeGame} handleSubmit={this.addList} handleChange={this.handleChange} />
+          <UpdateListForm games={this.state.games} clickEvent={this.removeGame} handleSubmit={this.updateList} handleChange={this.handleChange} />
         </div>
-        <ListSearchContainer clickEvent={this.addGame} />
+        <UpdateSearchContainer clickEvent={this.addGame} />
       </Fragment>
     )
   }
 }
 
-export default NewListModal
+export default UpdateListModal

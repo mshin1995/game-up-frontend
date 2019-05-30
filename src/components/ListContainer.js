@@ -1,49 +1,65 @@
 import React, { Fragment, Component } from "react"
 import ListCard from "./ListCard"
 import NewListModal from "./NewListModal"
-import { LIST, HEADERS, CORS} from "../constants"
+import { LIST } from "../constants"
 import Modal from 'react-modal';
+import { Button, Icon } from 'semantic-ui-react'
+import SearchBar from "./SearchBar"
+import { Redirect } from 'react-router-dom'
 
 class ListContainer extends Component {
   constructor() {
     super()
     this.state = {
       lists: [],
-      modalIsOpen: false
+      modalIsOpen: false,
+      gotSearch: false
     }
   }
 
-  // componentWillMount = () => {
-  //   this.fetchLists()
-  // }
-  //
-  // fetchLists = () => {
-  //   fetch(LIST)
-  //   .then(resp => resp.json())
-  //   .then(data => this.setState({
-  //     lists: data
-  //   }))
-  // }
+  componentWillMount = () => {
+    this.fetchLists()
+  }
 
-  // createLists = () => {
-  //   this.state.lists.map(list =>
-  //     if(list.user_id === this.props.userId) {
-  //       return <ListCard
-  //         list={list}
-  //         key={list.id}
-  //         title={list.title}
-  //         games={list.games}
-  //       />
-  //     }
-  //   )
-  // }
+  refresh = () => {
+    this.fetchLists()
+  }
+
+  handleChange = (e) => {
+    localStorage.setItem("currentSearch", e.target.value)
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.setState({
+      gotSearch: !this.state.gotSearch
+    })
+  }
+
+  fetchLists = () => {
+    fetch(`${LIST}/${JSON.parse(localStorage.currentUser).id}`)
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+      lists: data
+    })})
+  }
+
+  createLists = () => {
+    console.log('hi', this.state.lists)
+    return this.state.lists.map(list =>
+      <ListCard
+        list={list}
+        key={list.id}
+        title={list.title}
+        games={list.games}
+        refresh={this.refresh}
+      />
+    )
+  }
 
   openModal = () => {
     this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
   }
 
   closeModal = () => {
@@ -51,27 +67,35 @@ class ListContainer extends Component {
   }
 
   render() {
-      return (
-        <Fragment>
+    if(this.state.gotSearch) {
+      return <Redirect to='/search'/>
+    }
+    return (
+      <Fragment>
+        <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange}/>
         <div id="list">
-          <h1>My Lists</h1>
+          <h1 style={{color: "white", fontFamily: "Impact", paddingTop: "15px", paddingLeft: "20px"}}>My Lists</h1>
           <div className="listContainer">
+            {this.createLists()}
           </div>
-        </div>
-          <button onClick={this.openModal}>Add New List</button>
+          <Button className="addListButton" onClick={this.openModal}>Add New List</Button>
             <Modal
               isOpen={this.state.modalIsOpen}
               onAfterOpen={this.afterOpenModal}
               onRequestClose={this.closeModal}
               className="modal"
+              ariaHideApp={false}
               overlayClassName="overlay"
             >
-            <NewListModal />
-            <button className="modalButton" onClick={this.closeModal}>x</button>
+            <NewListModal refresh={this.refresh}/>
+            <Button icon className="modalButton" onClick={this.closeModal}>
+              <Icon name='times' />
+            </Button>
             </Modal>
-          </Fragment>
-      )
-    }
+        </div>
+      </Fragment>
+    )
+  }
 
 }
 
