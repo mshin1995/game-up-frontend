@@ -11,9 +11,9 @@ export const SEARCH_COVER_URL = "//images.igdb.com/igdb/image/upload/t_cover_sma
 export const RECENT_URL = "https://api-v3.igdb.com/games/?fields=name,cover&order=first_release_date:desc&filter[first_release_date][exists]&filter[first_release_date][lt]="
 export const SOON_URL = "https://api-v3.igdb.com/games/?fields=name,cover&order=first_release_date:asc&filter[first_release_date][exists]&filter[first_release_date][gt]="
 export const CORS = "https://my-cors-server.herokuapp.com"
-export const USER = "http://localhost:3000/users"
-export const LIST = "http://localhost:3000/lists"
+export const USER = "https://game-up-backend.herokuapp.com/users"
+export const LIST = "https://game-up-backend.herokuapp.com/lists"
 export const HEADERS = {
   Accept: "application/json",
-  "user-key": "5354f6fe11a2e783d1d78337ef40cbfb"
+  "user-key": "282cf0aa9900f6e0c75ac416291d965a"
 }

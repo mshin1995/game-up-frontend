@@ -8,7 +8,7 @@ class Login extends Component {
       return (
         <GoogleLogin
           className="loginButton"
-          clientId="438176320105-phev9j6ekg3eso7qu2hv4no0j86ftsfi.apps.googleusercontent.com"
+          clientId="438176320105-jabmdv7csvhcj32f0cq3vg6vfhg2hs9b.apps.googleusercontent.com"
           buttonText="Login"
           onSuccess={this.props.responseGoogle}
           onFailure={this.props.responseGoogle}
@@ -19,7 +19,7 @@ class Login extends Component {
       return (
         <GoogleLogout
           className="logoutButton"
-          clientId="438176320105-phev9j6ekg3eso7qu2hv4no0j86ftsfi.apps.googleusercontent.com"
+          clientId="438176320105-jabmdv7csvhcj32f0cq3vg6vfhg2hs9b.apps.googleusercontent.com"
           buttonText="Logout"
           onLogoutSuccess={this.props.logout}
         />
