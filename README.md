@@ -1,68 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Game-UP
 
-## Available Scripts
+#### Created by Matthew Shin, June 2019
 
-In the project directory, you can run:
+Game-UP is a web application for video game enthusiasts to get information on any game and stay up to date with recent gaming news. The frontend was built using React and the backend was built using Ruby on Rails. Any user is able to go on the website to search for video games by title. Upon creating an account, they are able to make personalized lists of video games, such as "favorites" or "wants". The application also implements Google OAuth for individual user verification. All of the video game data is pulled from the IGDB API.
 
-### `npm start`
+To see the full application in action go to https://game-up-app.herokuapp.com/
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Setup
+For use in a local environment, must setup both the frontend and the backend. The frontend can be cloned from this repository and the backend from [here](https://github.com/mshin1995/game-up-backend). You will need to use PostgreSQL for the database.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### Rails(Backend)
+From the root directory use Bundler to install Ruby gems: 
+```
+bundle install
+```
+Create the PostgreSQL database once that is done:
+```
+rails db:create
+rails db:migrate
+```
+Start the server:
+```
+rails s
+```
 
-### `npm test`
+### React(Frontend)
+To run locally, you must first go into the index.js file within src/constants. From there, for const USER and LIST, https://game-up-backend.herokuapp.com should be replaced with http://localhost:3000 or whatever localhost URL that the backend is running on. For example, export const USER = "https://game-up-backend.herokuapp.com/users" should be changed to "http://localhost:3000/users".
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Then install npm packages:
+```
+npm install
+```
+Once that is done, start the server:
+```
+npm start
+```
 
-### `npm run build`
+## Functionality
+Users can visit the site and search for more information on any video game they want without having to create an account. Clicking on a news article will redirect them to the actual article. Clicking on a game will redirect them to that specific game's page with all of its information, such as rating, summary, and screenshots.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Users that want to create an account can do so by logging in through Google. Logging in saves individual users to the database in the backend. This also allows users to navigate to "My Lists" on the side bar menu and create personalized lists that they can add/remove video games from.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Potential Issues
+All of the video game data that this site uses comes from the IGDB API. With a free account, the IGDB API sets a limit of 10,000 requests. If there is a lot of traffic for this application, it may reach that limit and prevent it from rendering the data. If this happens to any users, feel free to contact me, so that I can aquire a new key.  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+##### Thanks to [IGDB](https://api.igdb.com/) for providing the data to build this application and to https://github.com/Rob--W/cors-anywhere for providing a proxy to bypass issuses with CORS
