@@ -4,13 +4,15 @@
 
 Game-UP is a web application for video game enthusiasts to get information on any game and stay up to date with recent gaming news. The frontend was built using React and the backend was built using Ruby on Rails. Any user is able to go on the website to search for video games by title. Upon creating an account, they are able to make personalized lists of video games, such as "favorites" or "wants". The application also implements Google OAuth for individual user verification. All of the video game data is pulled from the IGDB API.
 
+![Game-UP Demo](Game-UP.gif)
+
 To see the full application in action go to https://game-up-app.herokuapp.com/
 
 ## Setup
 For use in a local environment, must setup both the frontend and the backend. The frontend can be cloned from this repository and the backend from [here](https://github.com/mshin1995/game-up-backend). You will need to use PostgreSQL for the database.
 
 ### Rails(Backend)
-From the root directory use Bundler to install Ruby gems: 
+From the root directory use Bundler to install Ruby gems:
 ```
 bundle install
 ```
